@@ -11,7 +11,7 @@ COPY package*.json ./
 RUN npm cache clean --force
 
 # Install dependencies; using --omit=dev per npm's suggestion
-RUN npm install --omit=dev
+RUN npm ci --omit=dev
 
 # Copy the rest of your application code
 COPY . .
