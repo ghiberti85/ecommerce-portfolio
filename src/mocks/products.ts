@@ -15,7 +15,7 @@ export interface Product {
       name: 'Smartphone XYZ',
       description: 'Um smartphone avançado com câmera de alta resolução.',
       price: 999.99,
-      image: '/images/smartphone.jpg',
+      image: 'https://picsum.photos/300/200',
       category: 'Eletrônicos',
     },
     {
@@ -23,7 +23,7 @@ export interface Product {
       name: 'Laptop ABC',
       description: 'Laptop leve e potente para profissionais.',
       price: 1299.99,
-      image: '/images/laptop.jpg',
+      image: 'https://picsum.photos/300/200?random=1',
       category: 'Eletrônicos',
     },
     {
@@ -31,7 +31,7 @@ export interface Product {
       name: 'Fones de Ouvido QWE',
       description: 'Fones de ouvido sem fio com cancelamento de ruído.',
       price: 199.99,
-      image: '/images/headphones.jpg',
+      image: 'https://picsum.photos/300/200?random=2',
       category: 'Acessórios',
     },
     {
@@ -39,7 +39,7 @@ export interface Product {
       name: 'Camiseta ERT',
       description: 'Camiseta de algodão com design exclusivo.',
       price: 19.99,
-      image: '/images/shirt.jpg',
+      image: 'https://picsum.photos/300/200?random=3',
       category: 'Roupas',
     },
     {
@@ -47,7 +47,7 @@ export interface Product {
       name: 'Livro ZXC',
       description: 'Livro de ficção científica best-seller.',
       price: 9.99,
-      image: '/images/book.jpg',
+      image: 'https://picsum.photos/300/200?random=4',
       category: 'Livros',
     },
     {
@@ -55,7 +55,7 @@ export interface Product {
         name: 'Tablet VBN',
         description: 'Tablet com tela de alta resolução e armazenamento expansível.',
         price: 299.99,
-        image: '/images/tablet.jpg',
+        image: 'https://picsum.photos/300/200?random=5',
         category: 'Eletrônicos',
     },
     {
@@ -63,7 +63,7 @@ export interface Product {
         name: 'Mochila FGH',
         description: 'Mochila resistente à água com compartimento para laptop.',
         price: 49.99,
-        image: '/images/backpack.jpg',
+        image: 'https://picsum.photos/300/200?random=6',
         category: 'Acessórios',
     },
     {
@@ -71,7 +71,7 @@ export interface Product {
         name: 'Calça JKL',
         description: 'Calça jeans de alta qualidade e confortável.',
         price: 39.99,
-        image: '/images/pants.jpg',
+        image: 'https://picsum.photos/300/200?random=7',
         category: 'Roupas',
     },
     {
@@ -79,7 +79,7 @@ export interface Product {
         name: 'Relógio UIO',
         description: 'Relógio de pulso elegante com pulseira de couro.',
         price: 79.99,
-        image: '/images/watch.jpg',
+        image: 'https://picsum.photos/300/200?random=8',
         category: 'Acessórios',
     },
     {
@@ -87,7 +87,7 @@ export interface Product {
         name: 'Câmera RTY',
         description: 'Câmera digital compacta com zoom óptico de 10x.',
         price: 199.99,
-        image: '/images/camera.jpg',
+        image: 'https://picsum.photos/300/200?random=9',
         category: 'Eletrônicos',
     },
     {
@@ -95,7 +95,7 @@ export interface Product {
         name: 'Óculos de Sol ASD',
         description: 'Óculos de sol com proteção UV e lentes polarizadas.',
         price: 59.99,
-        image: '/images/sunglasses.jpg',
+        image: 'https://picsum.photos/300/200?random=10',
         category: 'Acessórios',
     },
   ];

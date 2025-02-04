@@ -2,14 +2,44 @@
 'use client';
 
 import { useProducts } from '../../../hooks/useProducts';
-import { notFound } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
 
-export default function ProductPage({ params }: { params: { id: string } }) {
-  const { products } = useProducts();
-  const product = products?.find(p => p.id === params.id);
+interface Product {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image?: string;
+}
 
-  if (!product) {
-    notFound();
+export default function ProductPage() {
+  const { products, isLoading, isError } = useProducts();
+  const [product, setProduct] = useState<Product | null>(null);
+  const params = useParams();
+
+  useEffect(() => {
+    if (products && params?.id) {
+      const productId = String(params.id);
+      const foundProduct = products.find(p => p.id === productId) || null;
+      setProduct(foundProduct);
+    }
+  }, [products, params?.id]);
+
+  if (isLoading) {
+    return (
+      <div className="container mx-auto px-4 py-8 text-center">
+        <p className="text-xl font-semibold">Carregando produto...</p>
+      </div>
+    );
+  }
+
+  if (isError || !product) {
+    return (
+      <div className="container mx-auto px-4 py-8 text-center">
+        <p className="text-xl font-semibold text-red-500">Erro ao carregar produto.</p>
+      </div>
+    );
   }
 
   return (
