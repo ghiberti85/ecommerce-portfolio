@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import { CartProvider } from '../context/CartContext';
+import { Toaster } from 'react-hot-toast';
 import { Header } from '../components/layout/Header';
 import "./globals.css";
 
@@ -32,6 +33,7 @@ export default function RootLayout({
       >
         <CartProvider>
           <Header />
+          <Toaster position="top-right" reverseOrder={false} />
           {children}
         </CartProvider>
       </body>

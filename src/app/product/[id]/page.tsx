@@ -1,10 +1,10 @@
-// src/app/product/[id]/page.tsx
 'use client';
 
 import { useProducts } from '../../../hooks/useProducts';
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useCart } from '../../../context/CartContext';
+import toast from 'react-hot-toast';
 
 interface Product {
   id: string;
@@ -18,7 +18,6 @@ export default function ProductPage() {
   const { products, isLoading, isError } = useProducts();
   const { addToCart } = useCart();
   const [product, setProduct] = useState<Product | null>(null);
-  const [added, setAdded] = useState(false);
   const params = useParams();
 
   useEffect(() => {
@@ -39,8 +38,7 @@ export default function ProductPage() {
         quantity: 1,
       });
 
-      setAdded(true);
-      setTimeout(() => setAdded(false), 2000);
+      toast.success(`${product.name} adicionado ao carrinho!`);
     }
   };
 
@@ -72,11 +70,9 @@ export default function ProductPage() {
           <p className="text-2xl font-semibold mb-4">R$ {product.price.toFixed(2)}</p>
           <button
             onClick={handleAddToCart}
-            className={`bg-blue-500 text-white px-6 py-2 rounded-md transition-colors ${
-              added ? "bg-green-500" : "hover:bg-blue-600"
-            }`}
+            className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition-colors"
           >
-            {added ? "Adicionado!" : "Adicionar ao Carrinho"}
+            Adicionar ao Carrinho
           </button>
         </div>
       </div>
