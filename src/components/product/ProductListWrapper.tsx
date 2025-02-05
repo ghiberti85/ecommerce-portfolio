@@ -2,11 +2,17 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import { CategoryFilter } from '../CategoryFilter';
 
 const ProductList = dynamic(() => import('./ProductList').then(mod => mod.ProductList), {
   loading: () => <p>Carregando produtos...</p>,
 });
 
 export function ProductListWrapper() {
-  return <ProductList />;
+  return (
+    <div>
+    <CategoryFilter />
+    <ProductList />
+  </div>
+  );
 }
