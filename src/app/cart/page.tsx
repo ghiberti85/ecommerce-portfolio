@@ -1,9 +1,10 @@
+// src/app/cart/page.tsx
 'use client';
 
 import { useCart } from '../../context/CartContext';
 
 export default function CartPage() {
-  const { cart, removeFromCart, clearCart } = useCart();
+  const { cart, addToCart, decreaseQuantity, removeFromCart, clearCart } = useCart();
 
   const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
@@ -22,27 +23,27 @@ export default function CartPage() {
                 <div className="flex-grow">
                   <h2 className="text-lg font-bold">{item.name}</h2>
                   <p className="text-gray-600">R$ {item.price.toFixed(2)}</p>
-                  <p className="text-gray-700">Quantidade: {item.quantity}</p>
+                  <div className="flex items-center gap-2 mt-2">
+                    <button onClick={() => decreaseQuantity(item.id)} className="px-3 py-1 bg-gray-300 rounded">-</button>
+                    <span className="text-lg">{item.quantity}</span>
+                    <button onClick={() => addToCart(item)} className="px-3 py-1 bg-gray-300 rounded">+</button>
+                  </div>
                 </div>
-                <button
-                  onClick={() => removeFromCart(item.id)}
-                  className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors"
-                >
+                <button onClick={() => removeFromCart(item.id)} className="ml-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors">
                   Remover
                 </button>
               </div>
             ))}
           </div>
 
-          <div className="mt-6">
-            <h2 className="text-2xl font-semibold">Total: R$ {totalPrice.toFixed(2)}</h2>
-            <button
-              onClick={clearCart}
-              className="bg-gray-700 text-white px-6 py-2 mt-4 rounded hover:bg-gray-800 transition-colors"
+          <h2 className="text-2xl font-semibold mt-6">Total: R$ {totalPrice.toFixed(2)}</h2>
+          <button
+            onClick={clearCart}
+            className="mt-4 bg-gray-700 text-white px-6 py-2 rounded hover:bg-gray-800 transition-colors"
             >
-              Limpar Carrinho
-            </button>
-          </div>
+            Limpar Carrinho
+         </button>
+
         </>
       )}
     </div>

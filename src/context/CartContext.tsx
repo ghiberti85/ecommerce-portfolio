@@ -1,3 +1,4 @@
+// src/context/CartContext.tsx
 'use client';
 
 import { createContext, useContext, useEffect, useState } from 'react';
@@ -13,6 +14,7 @@ interface CartItem {
 interface CartContextProps {
   cart: CartItem[];
   addToCart: (item: CartItem) => void;
+  decreaseQuantity: (id: string) => void;
   removeFromCart: (id: string) => void;
   clearCart: () => void;
 }
@@ -36,21 +38,27 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [cart]);
 
   const addToCart = (item: CartItem) => {
-    setCart(prevCart => {
-      const existingItem = prevCart.find(cartItem => cartItem.id === item.id);
+    setCart((prevCart) => {
+      const existingItem = prevCart.find((cartItem) => cartItem.id === item.id);
       if (existingItem) {
-        return prevCart.map(cartItem =>
-          cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem
+        return prevCart.map((cartItem) =>
+          cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
         );
       }
       return [...prevCart, { ...item, quantity: 1 }];
     });
   };
 
+  const decreaseQuantity = (id: string) => {
+    setCart((prevCart) =>
+      prevCart
+        .map((item) => (item.id === id ? { ...item, quantity: item.quantity - 1 } : item))
+        .filter((item) => item.quantity > 0) // Remove o item se a quantidade chegar a 0
+    );
+  };
+
   const removeFromCart = (id: string) => {
-    setCart(prevCart => prevCart.filter(item => item.id !== id));
+    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
   const clearCart = () => {
@@ -58,7 +66,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
+    <CartContext.Provider value={{ cart, addToCart, decreaseQuantity, removeFromCart, clearCart }}>
       {children}
     </CartContext.Provider>
   );
