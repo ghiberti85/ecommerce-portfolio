@@ -6,6 +6,25 @@ import { useParams, useRouter } from 'next/navigation';
 import { useCart } from '../../../context/CartContext';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
+import { ShoppingCart, Share } from 'lucide-react';
+import { FaWhatsapp, FaFacebook } from 'react-icons/fa'; // Ícone oficial do WhatsApp
+
+// Simulação de avaliações
+const fakeReviews = [
+  { id: 1, user: 'Ana Silva', rating: 5, comment: 'Ótimo produto! Chegou rápido e é de excelente qualidade.' },
+  { id: 2, user: 'Carlos Souza', rating: 4, comment: 'Bom, mas esperava um pouco mais pelo preço.' },
+  { id: 3, user: 'Mariana Lima', rating: 5, comment: 'Amei! Atendeu todas as minhas expectativas.' },
+];
+
+// Função para gerar link de compartilhamento
+const getShareLink = (productName: string, productId: string) => {
+  const url = `${window.location.origin}/product/${productId}`;
+  const message = `Confira este produto: ${productName}`;
+  return {
+    whatsapp: `https://api.whatsapp.com/send?text=${encodeURIComponent(message + ' ' + url)}`,
+    facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+  };
+};
 
 interface Product {
   id: string;
@@ -13,7 +32,7 @@ interface Product {
   description: string;
   price: number;
   image?: string;
-  images?: string[]; // Suporte a múltiplas imagens
+  images?: string[];
 }
 
 export default function ProductPage() {
@@ -21,6 +40,7 @@ export default function ProductPage() {
   const { addToCart } = useCart();
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [shareLinks, setShareLinks] = useState<{ whatsapp: string; facebook: string } | null>(null);
   const params = useParams();
   const router = useRouter();
 
@@ -30,6 +50,9 @@ export default function ProductPage() {
       const foundProduct = products.find(p => p.id === productId) || null;
       setProduct(foundProduct);
       setSelectedImage(foundProduct?.images?.[0] || foundProduct?.image || null);
+      if (foundProduct) {
+        setShareLinks(getShareLink(foundProduct.name, foundProduct.id));
+      }
     }
   }, [products, params?.id]);
 
@@ -90,7 +113,7 @@ export default function ProductPage() {
 
           {/* Miniaturas do carrossel */}
           {product.images && product.images.length > 1 && (
-            <div className="flex gap-2 mt-4">
+            <div className="flex gap-2 mt-6">
               {product.images.map((img, index) => (
                 <button key={index} onClick={() => setSelectedImage(img)}>
                   <Image
@@ -116,11 +139,46 @@ export default function ProductPage() {
 
           <button
             onClick={handleAddToCart}
-            className="bg-blue-500 text-white px-6 py-2 rounded-md transition-transform hover:scale-105 hover:bg-blue-600"
+            className="bg-blue-500 text-white flex items-center gap-2 px-6 py-2 rounded-md transition-transform hover:scale-105 hover:bg-blue-600"
           >
-            Adicionar ao Carrinho
+            <ShoppingCart size={20} /> Adicionar ao Carrinho
           </button>
+
+          {/* Botões de Compartilhamento */}
+          {shareLinks && (
+            <div className="mt-6">
+              <h2 className="text-lg font-bold text-gray-300 mb-2 flex items-center gap-2">
+                <Share size={20} /> Compartilhar:
+              </h2>
+              <div className="flex gap-3">
+                <a href={shareLinks.whatsapp} target="_blank" rel="noopener noreferrer" className="bg-green-500 flex items-center gap-2 px-4 py-2 rounded-md text-white hover:bg-green-600 transition">
+                  <FaWhatsapp size={18} /> WhatsApp
+                </a>
+                <a href={shareLinks.facebook} target="_blank" rel="noopener noreferrer" className="bg-blue-600 flex items-center gap-2 px-4 py-2 rounded-md text-white hover:bg-blue-700 transition">
+                  <FaFacebook size={18} /> Facebook
+                </a>
+              </div>
+            </div>
+          )}
         </div>
+      </div>
+
+      {/* Seção de avaliações */}
+      <div className="mt-16">
+        <h2 className="text-2xl font-bold text-gray-300 mb-6">Avaliações</h2>
+        {fakeReviews.length > 0 ? (
+          <div className="space-y-4">
+            {fakeReviews.map((review) => (
+              <div key={review.id} className="bg-gray-800 p-4 rounded-lg shadow">
+                <p className="font-semibold text-white">{review.user}</p>
+                <p className="text-yellow-400">{"★".repeat(review.rating)}{"☆".repeat(5 - review.rating)}</p>
+                <p className="text-gray-400">{review.comment}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-500">Nenhuma avaliação disponível.</p>
+        )}
       </div>
     </div>
   );
