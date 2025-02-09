@@ -3,7 +3,7 @@
 
 import { useProducts } from '../../../hooks/useProducts';
 import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useCart } from '../../../context/CartContext';
 import toast from 'react-hot-toast';
 
@@ -19,8 +19,8 @@ export default function ProductPage() {
   const { products, isLoading, isError } = useProducts();
   const { addToCart } = useCart();
   const [product, setProduct] = useState<Product | null>(null);
-  const [isClicked, setIsClicked] = useState(false);
   const params = useParams();
+  const router = useRouter();
 
   useEffect(() => {
     if (products && params?.id) {
@@ -40,10 +40,7 @@ export default function ProductPage() {
         quantity: 1,
       });
 
-      setIsClicked(true);
       toast.success(`${product.name} adicionado ao carrinho!`);
-
-      setTimeout(() => setIsClicked(false), 200);
     }
   };
 
@@ -65,6 +62,13 @@ export default function ProductPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      <button
+        onClick={() => router.back()}
+        className="mb-4 px-4 py-2 bg-gray-600 rounded hover:bg-gray-800 transition"
+      >
+        ← Voltar
+      </button>
+
       <div className="grid md:grid-cols-2 gap-8">
         <div>
           <img
@@ -74,14 +78,12 @@ export default function ProductPage() {
           />
         </div>
         <div>
-          <h1 className="text-3xl font-bold mb-4 text-gray-800">{product.name}</h1>
-          <p className="text-gray-600 mb-4">{product.description}</p>
+          <h1 className="text-3xl font-bold mb-4 text-gray-300">{product.name}</h1>
+          <p className="text-gray-400 mb-4">{product.description}</p>
           <p className="text-2xl font-semibold mb-4 text-blue-500">R$ {product.price.toFixed(2)}</p>
           <button
             onClick={handleAddToCart}
-            className={`bg-blue-500 text-white px-6 py-2 rounded-md transition-transform ${
-              isClicked ? 'scale-110' : 'hover:scale-105 hover:bg-blue-600'
-            }`}
+            className="bg-blue-500 text-white px-6 py-2 rounded-md transition-transform hover:scale-105 hover:bg-blue-600"
           >
             Adicionar ao Carrinho
           </button>

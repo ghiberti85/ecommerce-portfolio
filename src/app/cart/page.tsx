@@ -19,14 +19,14 @@ export default function CartPage() {
           <div className="grid gap-4">
             {cart.map((item) => (
               <div key={item.id} className="flex items-center border p-4 rounded shadow">
-                <img src={item.image || "/placeholder.svg"} alt={item.name} className="w-20 h-20 object-cover rounded-lg mr-4" />
+                <img src={item.image || "/placeholder.svg"} alt={item.name} className="w-24 h-24 object-cover rounded-lg mr-4" />
                 <div className="flex-grow">
                   <h2 className="text-lg font-bold">{item.name}</h2>
                   <p className="text-gray-600">R$ {item.price.toFixed(2)}</p>
                   <div className="flex items-center gap-2 mt-2">
-                    <button onClick={() => decreaseQuantity(item.id)} className="px-3 py-1 bg-gray-300 rounded">-</button>
+                    <button onClick={() => decreaseQuantity(item.id)} className="px-3 py-1 bg-gray-700 hover:bg-gray-800 transition-colors rounded">-</button>
                     <span className="text-lg">{item.quantity}</span>
-                    <button onClick={() => addToCart(item)} className="px-3 py-1 bg-gray-300 rounded">+</button>
+                    <button onClick={() => addToCart(item)} className="px-3 py-1 bg-gray-700 hover:bg-gray-800 transition-colors rounded">+</button>
                   </div>
                 </div>
                 <button onClick={() => removeFromCart(item.id)} className="ml-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors">
