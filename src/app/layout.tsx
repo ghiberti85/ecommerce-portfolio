@@ -34,7 +34,7 @@ export default function RootLayout({
       >
         <CartProvider>
           <Header />
-          <Toaster position="top-right" reverseOrder={false} />
+          <Toaster position="bottom-right" reverseOrder={false} />
           <main className="flex-grow">{children}</main>
           <Footer />
         </CartProvider>
