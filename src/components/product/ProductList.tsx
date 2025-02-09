@@ -17,7 +17,7 @@ export const ProductList: React.FC = () => {
       {products.map((product) => (
         <div
           key={product.id}
-          className="border border-gray-800 p-4 rounded-lg shadow-lg bg-gray-900 hover:shadow-xl transition-transform duration-300 transform hover:scale-105 flex flex-col h-full"
+          className="border border-slate-400 p-4 rounded-lg shadow-lg bg-slate-800 hover:shadow-xl transition-transform duration-300 transform hover:scale-105 flex flex-col h-full"
         >
           <Link href={`/product/${product.id}`} className="block">
             <img
