@@ -4,10 +4,10 @@ import { useCart } from '../../context/CartContext';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
-import { FaTrashAlt, FaSave, FaShoppingCart, FaTimesCircle } from 'react-icons/fa';
+import { FaTrashAlt, FaSave, FaShoppingCart, FaTimesCircle, FaPlus, FaMinus } from 'react-icons/fa';
 
 export default function CartPage() {
-  const { cart, savedForLater, removeFromCart, saveForLater, moveToCart } = useCart();
+  const { cart, savedForLater, removeFromCart, saveForLater, moveToCart, addToCart, decreaseQuantity } = useCart();
   const [tab, setTab] = useState<'cart' | 'saved'>('cart');
   const [showModal, setShowModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
@@ -33,7 +33,7 @@ export default function CartPage() {
     <div className="container mx-auto px-4 py-8">
       {/* Resumo da Compra */}
       {cart.length > 0 && (
-        <div className="flex justify-between items-center mb-6 bg-gray-800 p-4 rounded-lg shadow-md">
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-6 bg-gray-800 p-4 rounded-lg shadow-md text-center sm:text-left">
           <h1 className="text-2xl font-bold text-white">Carrinho de Compras</h1>
           <p className="text-gray-300">🛒 {totalItems} itens | 💰 R$ {totalPrice.toFixed(2)}</p>
         </div>
@@ -80,6 +80,22 @@ export default function CartPage() {
                   <div className="flex-grow text-center sm:text-left">
                     <h2 className="text-lg font-bold text-white">{item.name}</h2>
                     <p className="text-blue-400 font-medium">R$ {item.price.toFixed(2)}</p>
+                    {/* Controles de Quantidade */}
+                    <div className="flex items-center justify-center sm:justify-start gap-2 mt-2">
+                      <button
+                        onClick={() => decreaseQuantity(item.id)}
+                        className="px-2 py-2 bg-gray-700 hover:bg-gray-800 transition-colors rounded"
+                      >
+                        <FaMinus />
+                      </button>
+                      <span className="text-lg">{item.quantity}</span>
+                      <button
+                        onClick={() => addToCart(item)}
+                        className="px-2 py-2 bg-gray-700 hover:bg-gray-800 transition-colors rounded"
+                      >
+                        <FaPlus />
+                      </button>
+                    </div>
                   </div>
                   <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
                     <button
@@ -139,23 +155,14 @@ export default function CartPage() {
       {showModal && selectedItem && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 px-4">
           <div className="bg-white p-6 rounded-lg shadow-lg text-center relative w-full max-w-sm">
-            {/* Ícone de Alerta */}
             <FaTimesCircle className="text-red-500 text-5xl mx-auto mb-4" />
-
             <h2 className="text-xl font-bold mb-2">Tem certeza?</h2>
             <p className="text-gray-600">Essa ação não pode ser desfeita.</p>
-            
             <div className="mt-4 flex flex-col sm:flex-row justify-center gap-4">
-              <button 
-                onClick={confirmRemove} 
-                className="bg-red-500 text-white px-4 py-2 rounded flex items-center justify-center gap-2 hover:bg-red-600 transition w-full sm:w-auto"
-              >
-                <FaTrashAlt className="text-lg" /> Remover
+              <button onClick={confirmRemove} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">
+                Remover
               </button>
-              <button 
-                onClick={() => setShowModal(false)} 
-                className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500 transition w-full sm:w-auto"
-              >
+              <button onClick={() => setShowModal(false)} className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500 transition">
                 Cancelar
               </button>
             </div>

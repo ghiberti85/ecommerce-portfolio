@@ -52,7 +52,7 @@ export default function CategoryPage() {
                 height={500}
                 className="w-full h-48 object-cover mb-3 rounded-lg"
               />
-              <h2 className="text-xl font-bold text-gray-800">{product.name}</h2>
+              <h2 className="text-xl font-bold text-gray-300">{product.name}</h2>
               <p className="text-gray-600">{product.description}</p>
               <p className="text-lg font-semibold mt-2 text-blue-500">R$ {product.price.toFixed(2)}</p>
             </Link>
