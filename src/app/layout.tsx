@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   title: "@ghiberti85 E-commerce",
   description: "Ecommerce completo desenvolvido por Fernando Ghiberti",
   icons: {
-    icon: "/favicon.ico",
+    icon: "./public/favicon.ico",
   },
 };
 
@@ -33,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="32x32" type="image/png" />
+        <link rel="icon" href="./public/favicon.ico" sizes="32x32" type="image/png" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
