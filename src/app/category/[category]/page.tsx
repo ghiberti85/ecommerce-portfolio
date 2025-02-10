@@ -43,7 +43,7 @@ export default function CategoryPage() {
             <Link
               href={`/product/${product.id}`}
               key={`${product.id}-${index}`}
-              className="border p-4 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105"
+              className=" border border-slate-400 p-4 rounded-lg shadow-lg bg-slate-800 hover:shadow-xl transition-transform duration-300 transform hover:scale-105 flex flex-col h-full"
             >
               <Image
                 src={product.image || "/placeholder.svg"}
