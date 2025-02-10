@@ -12,6 +12,10 @@ export default function CartPage() {
   const [showModal, setShowModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
+  // Cálculo do resumo do carrinho
+  const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+  const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+
   const handleRemove = (id: string) => {
     setSelectedItem(id);
     setShowModal(true);
@@ -27,23 +31,31 @@ export default function CartPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      {/* Resumo da Compra */}
+      {cart.length > 0 && (
+        <div className="flex justify-between items-center mb-6 bg-gray-800 p-4 rounded-lg shadow-md">
+          <h1 className="text-2xl font-bold text-white">Carrinho de Compras</h1>
+          <p className="text-gray-300">🛒 {totalItems} itens | 💰 R$ {totalPrice.toFixed(2)}</p>
+        </div>
+      )}
+
       {/* Tabs para alternar entre "Carrinho" e "Salvos para Depois" */}
-      <div className="flex space-x-4 mb-6">
+      <div className="flex space-x-4 mb-6 items-center justify-center">
         <button
           onClick={() => setTab('cart')}
-          className={`px-4 py-2 rounded-md font-semibold ${
-            tab === 'cart' ? 'bg-blue-500 text-white' : 'bg-gray-700 text-gray-300'
+          className={`px-4 py-2 rounded-md font-semibold flex items-center justify-center gap-2 ${
+            tab === 'cart' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300'
           }`}
         >
-          🛒 Carrinho ({cart.length})
+          <FaShoppingCart className="text-lg" /> Carrinho ({cart.length})
         </button>
         <button
           onClick={() => setTab('saved')}
-          className={`px-4 py-2 rounded-md font-semibold ${
-            tab === 'saved' ? 'bg-yellow-500 text-white' : 'bg-gray-700 text-gray-300'
+          className={`px-4 py-2 rounded-md font-semibold flex items-center justify-center gap-2 ${
+            tab === 'saved' ? 'bg-yellow-600 text-white' : 'bg-gray-700 text-gray-300'
           }`}
         >
-          ⭐ Salvos para Depois ({savedForLater.length})
+          <FaSave className="text-lg" /> Salvos ({savedForLater.length})
         </button>
       </div>
 
@@ -53,28 +65,34 @@ export default function CartPage() {
           {cart.length === 0 ? (
             <p className="text-gray-500 text-center">Seu carrinho está vazio.</p>
           ) : (
-            <div className="grid gap-4">
+            <div className="grid gap-6">
               {cart.map((item) => (
-                <div key={item.id} className="flex items-center border p-4 bg-gray-900 rounded-lg shadow-lg">
-                  <Link href={`/product/${item.id}`}>
-                    <Image src={item.image || "/placeholder.svg"} alt={item.name} width={100} height={100} className="rounded-lg" />
+                <div key={item.id} className="flex flex-col sm:flex-row items-center border p-4 bg-gray-900 rounded-lg shadow-lg gap-4">
+                  <Link href={`/product/${item.id}`} className="w-full sm:w-auto">
+                    <Image
+                      src={item.image || "/placeholder.svg"}
+                      alt={item.name}
+                      width={100}
+                      height={100}
+                      className="rounded-lg mx-auto sm:mx-0"
+                    />
                   </Link>
-                  <div className="ml-4 flex-grow">
+                  <div className="flex-grow text-center sm:text-left">
                     <h2 className="text-lg font-bold text-white">{item.name}</h2>
                     <p className="text-blue-400 font-medium">R$ {item.price.toFixed(2)}</p>
                   </div>
-                  <div className="flex space-x-2">
+                  <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
                     <button
                       onClick={() => saveForLater(item)}
-                      className="bg-yellow-500 text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-yellow-600 transition-colors"
+                      className="bg-yellow-500 text-white px-4 py-2 rounded flex items-center justify-center gap-2 hover:bg-yellow-600 transition-colors w-full sm:w-auto"
                     >
-                      <FaSave /> Salvar
+                      <FaSave className="text-lg" /> Salvar
                     </button>
                     <button
                       onClick={() => handleRemove(item.id)}
-                      className="bg-red-500 text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-red-600 transition-colors"
+                      className="bg-red-500 text-white px-4 py-2 rounded flex items-center justify-center gap-2 hover:bg-red-600 transition-colors w-full sm:w-auto"
                     >
-                      <FaTrashAlt /> Remover
+                      <FaTrashAlt className="text-lg" /> Remover
                     </button>
                   </div>
                 </div>
@@ -88,24 +106,28 @@ export default function CartPage() {
           {savedForLater.length === 0 ? (
             <p className="text-gray-500 text-center">Nenhum item salvo.</p>
           ) : (
-            <div className="grid gap-4">
+            <div className="grid gap-6">
               {savedForLater.map((item) => (
-                <div key={item.id} className="flex items-center border p-4 bg-gray-800 rounded-lg shadow-lg">
-                  <Link href={`/product/${item.id}`}>
-                    <Image src={item.image || "/placeholder.svg"} alt={item.name} width={100} height={100} className="rounded-lg" />
+                <div key={item.id} className="flex flex-col sm:flex-row items-center border p-4 bg-gray-800 rounded-lg shadow-lg gap-4">
+                  <Link href={`/product/${item.id}`} className="w-full sm:w-auto">
+                    <Image
+                      src={item.image || "/placeholder.svg"}
+                      alt={item.name}
+                      width={100}
+                      height={100}
+                      className="rounded-lg mx-auto sm:mx-0"
+                    />
                   </Link>
-                  <div className="ml-4 flex-grow">
+                  <div className="flex-grow text-center sm:text-left">
                     <h2 className="text-lg font-bold text-white">{item.name}</h2>
                     <p className="text-blue-400 font-medium">R$ {item.price.toFixed(2)}</p>
                   </div>
-                  <div className="flex space-x-2">
-                    <button
-                      onClick={() => moveToCart(item)}
-                      className="bg-green-500 text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-green-600 transition-colors"
-                    >
-                      <FaShoppingCart /> Adicionar ao Carrinho
-                    </button>
-                  </div>
+                  <button
+                    onClick={() => moveToCart(item)}
+                    className="bg-green-500 text-white px-4 py-2 rounded flex items-center justify-center gap-2 hover:bg-green-600 transition-colors w-full sm:w-auto"
+                  >
+                    <FaShoppingCart className="text-lg" /> Adicionar ao Carrinho
+                  </button>
                 </div>
               ))}
             </div>
@@ -115,24 +137,24 @@ export default function CartPage() {
 
       {/* Modal de Confirmação de Remoção */}
       {showModal && selectedItem && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg text-center relative">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 px-4">
+          <div className="bg-white p-6 rounded-lg shadow-lg text-center relative w-full max-w-sm">
             {/* Ícone de Alerta */}
             <FaTimesCircle className="text-red-500 text-5xl mx-auto mb-4" />
 
-            <h2 className="text-gray-600 ext-xl font-bold mb-2">Tem certeza?</h2>
-            <p className="text-gray-600">Esta ação não poderá ser desfeita.</p>
+            <h2 className="text-xl font-bold mb-2">Tem certeza?</h2>
+            <p className="text-gray-600">Essa ação não pode ser desfeita.</p>
             
-            <div className="mt-4 flex justify-center gap-4">
+            <div className="mt-4 flex flex-col sm:flex-row justify-center gap-4">
               <button 
                 onClick={confirmRemove} 
-                className="bg-red-500 text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-red-600 transition"
+                className="bg-red-500 text-white px-4 py-2 rounded flex items-center justify-center gap-2 hover:bg-red-600 transition w-full sm:w-auto"
               >
-                <FaTrashAlt /> Remover
+                <FaTrashAlt className="text-lg" /> Remover
               </button>
               <button 
                 onClick={() => setShowModal(false)} 
-                className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500 transition"
+                className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500 transition w-full sm:w-auto"
               >
                 Cancelar
               </button>

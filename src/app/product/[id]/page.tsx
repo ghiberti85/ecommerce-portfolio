@@ -105,7 +105,7 @@ export default function ProductPage() {
               alt={product.name}
               width={600}
               height={600}
-              className="w-full h-auto object-cover rounded-lg shadow-md transition-transform duration-300 hover:scale-105"
+              className="w-full h-auto object-cover rounded-lg shadow-md"
             />
           ) : (
             <p className="text-center text-gray-500">Nenhuma imagem disponível</p>
