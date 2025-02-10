@@ -4,6 +4,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useProducts } from '../../hooks/useProducts';
+import Image from 'next/image';
 
 export const ProductList: React.FC = () => {
   const { products, isLoading, isError } = useProducts();
@@ -19,15 +20,15 @@ export const ProductList: React.FC = () => {
           key={product.id}
           className="border border-slate-400 p-4 rounded-lg shadow-lg bg-slate-800 hover:shadow-xl transition-transform duration-300 transform hover:scale-105 flex flex-col h-full"
         >
-          <Link href={`/product/${product.id}`} className="block">
-            <img
+            <Image
               src={product.image || "/placeholder.svg"}
               alt={product.name}
+              width={500}
+              height={500}
               className="w-full h-48 object-cover mb-3 rounded-lg"
             />
             <h2 className="text-lg font-bold text-white">{product.name}</h2>
-            <p className="text-gray-400 text-sm">{product.description}</p>
-          </Link>
+          <p className="text-gray-400 text-sm">{product.description}</p>
           <div className="mt-auto">
             <p className="text-lg font-semibold mt-2 text-blue-400">R$ {product.price.toFixed(2)}</p>
             <Link href={`/product/${product.id}`}>
