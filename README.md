@@ -1,36 +1,119 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+🛒 E-commerce Portfolio
 
-## Getting Started
+E-commerce Portfolio é um projeto de loja virtual desenvolvido com Next.js, Tailwind CSS e TypeScript. Ele simula um ambiente de compra online e pode ser utilizado como referência para projetos futuros.
 
-First, run the development server:
+📌 Funcionalidades
+✅ Listagem de produtos com filtros e ordenação
+✅ Pesquisa dinâmica no header
+✅ Página de detalhes do produto com avaliações e compartilhamento
+✅ Carrinho de compras com animações e resumo da compra
+✅ Salvar para mais tarde e mover itens entre o carrinho e lista de desejos
+✅ Checkout Simulado com formulário de pagamento
+✅ Responsividade completa para desktop e mobile
 
-```bash
+🚀 Tecnologias Utilizadas
+Next.js (Framework React)
+Tailwind CSS (Estilização)
+TypeScript (Tipagem e segurança)
+Framer Motion (Animações)
+Lucide React (Ícones)
+React Hook Form (Formulários)
+React Hot Toast (Notificações)
+🔧 Instalação e Uso
+1️⃣ Clone o repositório
+bash
+Copy
+Edit
+git clone https://github.com/seu-usuario/ecommerce-portfolio.git
+cd ecommerce-portfolio
+2️⃣ Instale as dependências
+bash
+Copy
+Edit
+npm install
+# ou
+yarn install
+3️⃣ Inicie o servidor local
+bash
+Copy
+Edit
 npm run dev
-# or
+# ou
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Acesse o projeto no navegador: http://localhost:3000
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🌐 Deploy na Vercel
+O projeto já está configurado para ser publicado na Vercel.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+📤 Publicar na Vercel
+Faça login na Vercel
+Conecte o repositório do GitHub
+Clique em Deploy
+Dica: Qualquer alteração feita na branch main será automaticamente publicada na Vercel.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+📂 Estrutura do Projeto
+scss
+Copy
+Edit
+📦 ecommerce-portfolio
+├── 📁 public
+│   ├── placeholder.svg (Imagem padrão)
+│
+├── 📁 src
+│   ├── 📁 app
+│   │   ├── 📁 cart
+│   │   │   ├── page.tsx (Página do carrinho)
+│   │   ├── 📁 checkout
+│   │   │   ├── page.tsx (Página de checkout)
+│   │   ├── 📁 product
+│   │   │   ├── [id] (Página dinâmica do produto)
+│   │   │   │   ├── page.tsx
+│   │   ├── 📁 category
+│   │   │   ├── [category] (Página de categorias)
+│   │   │   │   ├── page.tsx
+│   │   ├── 📁 layout.tsx (Layout principal)
+│   │   ├── 📁 page.tsx (Página inicial)
+│
+│   ├── 📁 components
+│   │   ├── 📁 layout
+│   │   │   ├── Header.tsx (Navbar e pesquisa)
+│   │   │   ├── Footer.tsx (Rodapé)
+│   │   ├── 📁 product
+│   │   │   ├── ProductList.tsx (Lista de produtos)
+│   │   │   ├── ProductFilter.tsx (Filtro de produtos)
+│   │   │   ├── ProductDetails.tsx (Detalhes do produto)
+│   ├── 📁 context
+│   │   ├── CartContext.tsx (Gerenciamento do carrinho)
+│   ├── 📁 hooks
+│   │   ├── useProducts.ts (Gerencia os produtos)
+│   ├── 📁 mocks
+│   │   ├── products.ts (Produtos mockados)
+│   ├── 📁 utils
+│   │   ├── normalizeString.ts (Normaliza strings)
+│   ├── 📁 styles
+│   │   ├── globals.css (Estilos globais)
+│
+├── next.config.js (Configuração do Next.js)
+├── package.json (Dependências do projeto)
+📝 Melhorias Futuras
+🔄 Integração com uma API real (ex: Firebase ou Strapi)
+🛒 Sistema de usuários e autenticação
+📦 Histórico de pedidos
+📊 Dashboard para visualizar vendas
+👨‍💻 Desenvolvedor
+Fernando Ghiberti
+🚀 Desenvolvido com 💙 por Fernando Ghiberti
 
-## Learn More
+📧 Email: ghiberti85@gmail.com
+💼 Portfólio: [Em breve]
 
-To learn more about Next.js, take a look at the following resources:
+🌟 Contribuição
+Se quiser contribuir com o projeto:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Fork o repositório 🍴
+Crie uma branch (git checkout -b minha-feature)
+Faça um commit (git commit -m 'Adicionando nova funcionalidade')
+Push na branch (git push origin minha-feature)
+Abra um Pull Request ✅
+📜 Licença
+Este projeto está sob a Licença MIT. Sinta-se livre para utilizar e modificar. 🚀
