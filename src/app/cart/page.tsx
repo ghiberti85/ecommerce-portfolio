@@ -4,7 +4,7 @@ import { useCart } from '../../context/CartContext';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
-import { FaTrashAlt, FaSave, FaShoppingCart, FaTimesCircle, FaPlus, FaMinus } from 'react-icons/fa';
+import { FaTrashAlt, FaSave, FaShoppingCart, FaTimesCircle, FaPlus, FaMinus, FaArrowRight } from 'react-icons/fa';
 
 export default function CartPage() {
   const { cart, savedForLater, removeFromCart, saveForLater, moveToCart, addToCart, decreaseQuantity } = useCart();
@@ -149,6 +149,17 @@ export default function CartPage() {
             </div>
           )}
         </>
+      )}
+
+      {/* Botão para ir ao Checkout */}
+            {cart.length > 0 && (
+        <div className="mt-6 flex justify-center">
+          <Link href="/checkout">
+            <button className="bg-blue-500 text-white px-6 py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-blue-600 transition">
+              <FaArrowRight /> Ir para o Checkout
+            </button>
+          </Link>
+        </div>
       )}
 
       {/* Modal de Confirmação de Remoção */}
